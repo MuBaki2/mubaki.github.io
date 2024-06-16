@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Permission</title>
+    <style>
+        /* Style for the button */
+        .notify-button {
+            background-color: #007BFF; /* Blue background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 15px 32px; /* Some padding */
+            text-align: center; /* Centered text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Get it to display like an inline element */
+            font-size: 16px; /* Increase font size */
+            margin: 4px 2px; /* Some margin */
+            cursor: pointer; /* Pointer/hand icon on hover */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        /* Change background color on hover */
+        .notify-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Notification Example</h2>
+
+<!-- Notification Button -->
+<button class="notify-button" onclick="requestNotificationPermission()">Show Notification</button>
+
+<script>
+    function requestNotificationPermission() {
+        // Check if the browser supports notifications
+        if (!('Notification' in window)) {
+            alert('This browser does not support desktop notifications.');
+        } else if (Notification.permission === 'granted') {
+            // If permission is already granted, show the notification
+            showNotification();
+        } else if (Notification.permission !== 'denied') {
+            // Otherwise, ask the user for permission
+            Notification.requestPermission().then(function (permission) {
+                if (permission === 'granted') {
+                    showNotification();
+                }
+            });
+        }
+    }
+
+    function showNotification() {
+        // Create and show the notification
+        new Notification('Hello!', {
+            body: 'This is a simple notification.',
+            icon: 'https://via.placeholder.com/128' // You can replace this with an actual URL to an icon image
+        });
+    }
+</script>
+
+</body>
+</html>
